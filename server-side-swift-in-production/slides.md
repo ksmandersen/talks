@@ -214,6 +214,8 @@ theme: Scherzkeks, 7
 ^ Does not require same resources as a dedicated virtualized OS
 ^ Many containers can share the same physical resources (CPU/RAM)
 
+---
+
 # Images
 
 ![](slides-images.gif)
@@ -300,7 +302,28 @@ CMD ["./myappbinary", "serve", "--env", "production", "--hostname", "0.0.0.0"]
 
 ---
 
-# Demo time
+# Dokku
+
+- Create a new Ubuntu16.04 server (DigitialOcean or Linode)
+- SSH in and run:
+
+```bash
+wget https://raw.githubusercontent.com/dokku/dokku/v0.12.4/bootstrap.sh
+sudo DOKKU_TAG=v0.12.4 bash bootstrap.sh
+dokku apps:create hello-vapor-3
+dokku domains:add hello-vapor-3 your-domain
+dokku plugin:install https://github.com/dokku/dokku-mysql.git mysql
+dokku mysql:create hello-vapor-db
+dokku mysql:link hello-vapor-db hello-vapor-3
+```
+
+# Dokku
+
+```bash
+vapor new hello-vapor-3 --branch=beta --template=api
+git remote add production dokku@your-domain
+g push production master
+```
 
 ---
 
